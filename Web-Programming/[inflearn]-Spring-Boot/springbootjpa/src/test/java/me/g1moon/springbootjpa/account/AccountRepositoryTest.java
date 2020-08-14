@@ -42,7 +42,7 @@ public class AccountRepositoryTest {
         account.setPassword("1234");
 
 //        Account newAccount = accountRepository.save(account);
-        accountRepository.save(account);
+//        accountRepository.save(account);
 //        assertThat(newAccount).isNotNull(); //junit정리해주고
 //
 //        Account existingAcoount = accountRepository.findByUsername(newAccount.getUsername());
