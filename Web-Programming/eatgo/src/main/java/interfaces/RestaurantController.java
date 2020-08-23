@@ -1,5 +1,6 @@
 package interfaces;
 
+import domain.MenuItem;
 import domain.Restaurant;
 import domain.RestaurantRepositoryImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -18,7 +20,7 @@ public class RestaurantController {
     //객체를 직접 만들어주지 않고 아래처럼----------------------------
     //    private RestaurantRepository repository = new RestaurantRepository(); //repository필드를 만들어주면서 -> 식당레포객체를만들
     @Autowired
-    private RestaurantRepositoryImpl repository; //구현체로 받아옴
+    private RestaurantRepositoryImpl restaurantsRepository; //구현체로 받아옴
     //---------------------------------------------
 
     @GetMapping("/restaurants") //리스트만들고, 객체만들고, 더하고, 리턴
@@ -28,7 +30,7 @@ public class RestaurantController {
 ////        restaurants.add(new Restaurant(1004L, "Bob zip", "Seoul"));
 ////        restaurants.add(new Restaurant(2020L,"Cyber food", "Seoul"));
 
-        List<Restaurant> restaurants = repository.findAll();
+        List<Restaurant> restaurants = restaurantsRepository.findAll();
 
         return restaurants; //리스트를 리턴
     }
@@ -50,7 +52,10 @@ public class RestaurantController {
         //1과 같음
 //        List<Restaurant> restaurants = repository.findAll();
         //-----------------------
-        Restaurant restaurant = repository.findById(id);
+        Restaurant restaurant = restaurantsRepository.findById(id);
+
+        List<MenuItem> menuitems = menuItemRepository.findAllByRestaurantId(id);
+        restaurant.setMenuItems(menuitems);
 
         //----------repository로 넘겨줌---------------
 //        Restaurant restaurant = restaurants.stream() //리슽트를 스트림으로 바꿔서

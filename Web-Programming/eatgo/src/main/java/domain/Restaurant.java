@@ -1,10 +1,14 @@
 package domain;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.List;
+
 public class Restaurant {
     private final String location;
     private final Long id;
     private String name; //레스토랑 객체의 파라미터
-
+    private List<MenuItem> menuitems = new ArrayList<MenuItem>();
 
 
     public Restaurant(Long id, String name, String location) {
@@ -27,6 +31,14 @@ public class Restaurant {
 
     public String getLocation() {
         return location;
+    }
+
+    public List<MenuItem> getMenuitems() {
+        return menuitems;
+    }
+
+    public void addMenuItem(MenuItem menuItem) {
+        menuitems.add(menuItem);
     }
 }
 

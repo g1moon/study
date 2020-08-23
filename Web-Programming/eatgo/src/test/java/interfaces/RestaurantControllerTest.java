@@ -35,6 +35,7 @@ class RestaurantControllerTest {
                 .andExpect(content().string(containsString("Seoul")))
                 .andExpect(content().string(
                         containsString("\"name\":\"Bob zip\"")))
+                .andExpect(content().string(containsString("Kimchi")))
                 .andExpect(content().string(containsString("\"id\":1004")));
 
     }
