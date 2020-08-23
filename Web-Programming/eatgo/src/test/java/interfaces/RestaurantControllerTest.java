@@ -1,5 +1,7 @@
 package interfaces;
 
+import domain.MenuItemRepository;
+import domain.MenuItemRepositoryImpl;
 import domain.RestaurantRepository;
 import domain.RestaurantRepositoryImpl;
 import org.junit.jupiter.api.Test;
@@ -19,13 +21,16 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @RunWith(SpringRunner.class)//스프링을 이용해 이 테스트
 @WebMvcTest(RestaurantController.class)//특정 컨트롤러를 테스트한다
 class RestaurantControllerTest {
-
+    //----------------------------------------------------------
     @Autowired
     private MockMvc mvc;
 
     @SpyBean(RestaurantRepositoryImpl.class) //컨트롤러에 원하는 객체를 주입해줄 수 있음 //어떤 구현으로 사용할지 넣어줘얗마
-    private RestaurantRepository abc; //걍 아무이름으로 줘도 돌아감
+    private RestaurantRepository abc; //걍 아무이름으로 줘도 돌아감 - restaurantsRepository
 
+    @SpyBean(MenuItemRepositoryImpl.class) //구현체가져와
+    private MenuItemRepository abcc; //MenuItemRepository
+//----------------------------------------------------------
     @Test
     public void list() throws Exception {
         mvc.perform(get("/restaurants"))
@@ -39,7 +44,7 @@ class RestaurantControllerTest {
                 .andExpect(content().string(containsString("\"id\":1004")));
 
     }
-
+//----------------------------------------------------------
     @Test
     public void detail() throws Exception {
         mvc.perform(get("/restaurants/1004"))

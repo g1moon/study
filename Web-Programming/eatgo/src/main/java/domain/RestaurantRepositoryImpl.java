@@ -19,7 +19,7 @@ public class RestaurantRepositoryImpl implements RestaurantRepository {
     //-------인터페이스로 분리(메서드)-----------------------
     @Override
     public List<Restaurant> findAll() {
-        return restaurants;
+            return restaurants;
 
     }
 

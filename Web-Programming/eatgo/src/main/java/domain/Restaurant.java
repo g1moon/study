@@ -8,7 +8,7 @@ public class Restaurant {
     private final String location;
     private final Long id;
     private String name; //레스토랑 객체의 파라미터
-    private List<MenuItem> menuitems = new ArrayList<MenuItem>();
+    private List<MenuItem> menuitems = new ArrayList<MenuItem>(); //메뉴아이템관리할 리스트
 
 
     public Restaurant(Long id, String name, String location) {
@@ -39,6 +39,12 @@ public class Restaurant {
 
     public void addMenuItem(MenuItem menuItem) {
         menuitems.add(menuItem);
+    }
+
+    public void setMenuItems(List<MenuItem> menuItems) {
+        for (MenuItem menuItem : menuItems) {
+            addMenuItem(menuItem);
+        }
     }
 }
 
