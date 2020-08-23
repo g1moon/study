@@ -1,6 +1,8 @@
 package interfaces;
 
+import application.RestaurantService;
 import domain.*;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringBootConfiguration;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,23 +17,28 @@ import java.util.List;
 public class RestaurantController {
 
     @Autowired
-    private RestaurantRepositoryImpl restaurantsRepository; //구현체로 받아옴
+    private RestaurantService restaurantService; //구현체로 받아옴
     @Autowired
-    private MenuItemRepository menuItemRepository;
+    private MenuItemRepository menuItemRepository;//
+    @Autowired
+    private RestaurantRepository restaurantsRepository;
 
 
-//----------------------------------------------------------
+    //----------------------------------------------------------
     @GetMapping("/restaurants") //리스트만들고, 객체만들고, 더하고, 리턴
     public List<Restaurant> list() {
 
         List<Restaurant> restaurants = restaurantsRepository.findAll();
+//        List<Restaurant> =restaurantService.getRestaurants();
         return restaurants; //리스트를 리턴
     }
 //----------------------------------------------------------
     @GetMapping("/restaurants/{id}")
     public Restaurant detail(@PathVariable("id") Long id) {
-        
-        Restaurant restaurant = restaurantsRepository.findById(id);
+        //기본정보 + 메뉴정보를 한번에
+        Restaurant restaurant = restaurantService.getRestaurant(id);
+
+//        Restaurant restaurant = restaurantsRepository.findById(id);
         List<MenuItem> menuItems = menuItemRepository.findAllByRestaurantId(id);
         restaurant.setMenuItems(menuItems);
 
