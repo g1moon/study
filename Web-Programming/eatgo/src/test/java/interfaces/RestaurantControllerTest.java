@@ -1,5 +1,6 @@
 package interfaces;
 
+import application.RestaurantService;
 import domain.MenuItemRepository;
 import domain.MenuItemRepositoryImpl;
 import domain.RestaurantRepository;
@@ -25,14 +26,20 @@ class RestaurantControllerTest {
     @Autowired
     private MockMvc mvc;
 
+    @SpyBean(RestaurantService.class)
+    private RestaurantService restaurantService;
+
     @SpyBean(RestaurantRepositoryImpl.class) //컨트롤러에 원하는 객체를 주입해줄 수 있음 //어떤 구현으로 사용할지 넣어줘얗마
     private RestaurantRepository abc; //걍 아무이름으로 줘도 돌아감 - restaurantsRepository
 
     @SpyBean(MenuItemRepositoryImpl.class) //구현체가져와
     private MenuItemRepository abcc; //MenuItemRepository
+
+
 //----------------------------------------------------------
     @Test
     public void list() throws Exception {
+
         mvc.perform(get("/restaurants"))
                 //Restaurant restaurant = new Restaurant(1004L,"Bob zip", "Seoul");
                 .andExpect(status().isOk())
