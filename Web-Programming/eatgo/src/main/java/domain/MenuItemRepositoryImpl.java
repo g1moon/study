@@ -13,8 +13,6 @@ public class MenuItemRepositoryImpl implements MenuItemRepository {
         menuItems.add(new MenuItem("Kimchi"));
     }
 
-    @Override
-    public List<MenuItem> findAllByRestaurantId(Long retaurantId) {
-        return menuItems;
-    }
+
+
 }

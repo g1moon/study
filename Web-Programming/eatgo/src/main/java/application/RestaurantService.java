@@ -12,6 +12,7 @@ import java.util.List;
 
 @Service
 public class RestaurantService {
+
     @Autowired
     private static RestaurantRepository restaurantRepository;
 //    @Autowired

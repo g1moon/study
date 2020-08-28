@@ -1,19 +1,22 @@
 package interfaces;
 
 import application.RestaurantService;
-import domain.MenuItemRepository;
-import domain.MenuItemRepositoryImpl;
-import domain.RestaurantRepository;
-import domain.RestaurantRepositoryImpl;
+import domain.*;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.boot.test.mock.mockito.SpyBean;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.hamcrest.Matchers.containsString;
+
+import static org.mockito.BDDMockito.given;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -25,20 +28,15 @@ class RestaurantControllerTest {
     //----------------------------------------------------------
     @Autowired
     private MockMvc mvc;
-
-    @SpyBean(RestaurantService.class)
-    private RestaurantService restaurantService;
-
-    @SpyBean(RestaurantRepositoryImpl.class) //컨트롤러에 원하는 객체를 주입해줄 수 있음 //어떤 구현으로 사용할지 넣어줘얗마
-    private RestaurantRepository abc; //걍 아무이름으로 줘도 돌아감 - restaurantsRepository
-
-    @SpyBean(MenuItemRepositoryImpl.class) //구현체가져와
-    private MenuItemRepository abcc; //MenuItemRepository
-
-
+//-----실제로 테스트에서 서비스, 레포들을 투입한 것인데, mock객체로 대신해서 테스트를 할 수 있음 ------------------
+    @MockBean
+    private RestaurantService restaurantService; //서비스에 레포들이 담겨있음(식당, 메뉴아이템)
 //----------------------------------------------------------
     @Test
     public void list() throws Exception {
+//        List<Restaurant> restaurants = new ArrayList<>();
+//        restaurants.add(new Restaurant(1004L, "Bob zip", "Seoul"));
+//        given(restaurantService.getRestaurants()).willReturn(restaurants);//getRest를하면 -> restaurants를 리턴할 것이다
 
         mvc.perform(get("/restaurants"))
                 //Restaurant restaurant = new Restaurant(1004L,"Bob zip", "Seoul");
@@ -54,6 +52,14 @@ class RestaurantControllerTest {
 //----------------------------------------------------------
     @Test
     public void detail() throws Exception {
+        Restaurant restaurant1 = new Restaurant(1004L, "Bob zip", "Seoul");
+        restaurant1.addMenuItem(new MenuItem("Kimchi"));
+
+        Restaurant restaurant2 = new Restaurant(2020L, "Cyber food", "Seoul");
+
+        given(restaurantService.getRestaurant(1004L)).willReturn(restaurant1);
+        given(restaurantService.getRestaurant(2020L)).willReturn(restaurant2);
+
         mvc.perform(get("/restaurants/1004"))
                 //Restaurant restaurant = new Restaurant(1004L,"Bob zip", "Seoul");
                 .andExpect(status().isOk())
