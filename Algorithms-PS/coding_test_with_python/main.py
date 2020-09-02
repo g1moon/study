@@ -26,4 +26,4 @@ for i in range(len(xlst)):
     new_x = x + xlst[i]
     new_y = y + ylst[i]
     if new_x >= 1 and new_x <=8 and new_y >=1 and new_y<=8:
-        print(new_x, new_y)
+        print(i)
