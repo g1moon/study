@@ -20,3 +20,19 @@ for i in range(len(mat)):
 print('------np.rot90()-------------')
 import numpy as np
 print(np.rot90(mat))
+
+print('===========================')
+def rotate_90(mat):
+    row_len = len(mat)
+    col_len = len(mat[0])
+    res = [[0] * col_len for _ in range(row_len) ] #row와 col 뒤집어
+    for row in range(0, row_len): #0 1 2
+        for col in range(0, col_len): #0, 1, 2
+            res[col][row_len - 1 - row] = mat[row][col]
+    return res
+ 
+            
+            
+mat = [[0,1,0], [0,0,0],[0,1,1]]
+print(mat)
+print(rotate_90(mat))
