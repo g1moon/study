@@ -26,27 +26,67 @@ for _ in range(L):
     #x초 끝난 뒤에 왼쪽오른쪽
     input_lst = input().split()
     x, d = input_lst[0], input_lst[1]
-    rotate_lst.append([x,d])
+    rotate_lst.append([int(x),d])
     
-print('n:', N)
-print('mat------\n',mat )
-print(rotate_lst)
+# print('n:', N)
+# print('mat------\n',mat )
+# print(rotate_lst)
 #------------------------------------
 
 #-----rotate method------------------------
 #동 남 서 북
 #0 1 2 3
-def rotate(left_or_right):
-    global dir 
+def turn(dir, left_or_right):
     if left_or_right == 'D':
         new_dir = dir + 1
     else:
         new_dir = dir - 1
         
     if new_dir == 4:
-        dir = 0
+        return 0
     elif new_dir == -1:
-        dir = 3
+        return 3
     else:
-        dir = new_dir
+        return new_dir
 #-----------------------------------------
+#동, 남 서, 북으로 이동할 리스트 
+dx = [0, 1, 0, -1]
+dy = [1, 0, -1, 0]
+#초기값 세팅------------------------------
+x, y = 0, 0 #현재 좌표
+dir = 0 #시작은 동 
+sec = 0 #0초부터 시작
+queue = [(x,y)] #뱀 차지하고있는 자리 큐로 관리 
+#----------------------------------
+while True:
+    nx = x + dx[dir]
+    ny = y + dy[dir]
+    #다음이 내 몸에 닿거나, 범위를 벗어나는경우
+    if ((nx,ny) in queue) :
+        sec += 1
+        break  
+    elif nx<0 or ny<0 or nx>(N-1) or ny>(N-1):
+        sec += 1
+        break    
+    
+    #1. nxt_head에 사과 없
+    if mat[nx][ny] == 0:
+        queue.append((nx,ny))
+        queue.pop(0)
+    #2. nxt_head 사과 있어
+    else:
+        mat[nx][ny] = 0 #사과 먹었으면 뺴줘야지 
+        queue.append((nx,ny))
+    
+    x = nx
+    y = ny 
+    
+    sec += 1
+    if rotate_lst:
+        if sec == rotate_lst[0][0]:
+            dir = turn(dir, rotate_lst[0][1])
+            rotate_lst.pop(0)
+        
+
+print(sec)
+    
