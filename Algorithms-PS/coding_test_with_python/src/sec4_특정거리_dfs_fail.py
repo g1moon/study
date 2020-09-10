@@ -6,30 +6,37 @@
     
 '''
 N, M, K, X = map(int, input().split())
-print(N, M, K, X)
+# print(N, M, K, X)
 dic = {}
+for i in range(1, N+1):
+    dic[i] = []
+
 for _ in range(M):
-    f, t = map(int, input().split())
-    try: dic[f].append(t)
-    except: dic[f] = [t]
+    a, b = map(int, input().split())
+    dic[a].append(b)
+# print(dic)
     
-res = [0] *  300,000
-def dfs(idx):
-    global res 
-    try: dfs[res[idx-1]]
-    except:
-        print(res)
-        return
-        
-    if idx == 0:
-        for start in dic.keys():
-            res[idx] = start
-            dfs(idx+1)
-    else:
-        for i in dic[res[idx-1]]:
-            res[idx] = i
-            dfs(idx+1)
+    
+dist_lst = [1e9] * (N+1)
+
+def dfs(dist, cur):
+    global dist_lst
+    if len(dic[cur]) == 0:
+        dist_lst[cur] = min(dist_lst[cur], dist)
+        return 
+    
+    for i in dic[cur]:
+        dfs(dist+1, i)
             
-dfs(0)
-            
+dfs(0,X)
+
+print_neg = True
+print(dist_lst)
+for i in range(len(dist_lst)):
+    if dist_lst[i] == K:
+        print(i)    
+        print_neg = False
+
+if print_neg:
+    print(-1)
             
