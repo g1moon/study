@@ -8,7 +8,7 @@ N, M = map(int, input().split())
 mat = []
 for _ in range(N):
     mat.append(list(map(int, input().split())))
-print(mat)
+# print(mat)
 
 #----바이러스리스트-------------
 virus_lst = []
@@ -44,28 +44,24 @@ def count_safe_area(mat, virus_lst):
 from itertools import combinations
 import copy
 lst = []
-for i in range(N):
-    for j in range(M):
-        lst.append((i,j))
+for i in range(len(mat)):
+    for j in range(len(mat[0])):
+        if mat[i][j] == 0:
+            lst.append((i,j))
 
-prob_case = list(combinations(lst, 3))
-print(prob_case[0])
-res = 0 
-for case in prob_case:
+prob_case = list(combinations(lst, 3)) #list        
+res = 0
+for case_tuple in prob_case:
+    case_lst = list(case_tuple)
     tmp_mat = copy.deepcopy(mat)
     tmp_virus_lst = copy.deepcopy(virus_lst)
-    for i in case:
-        a, b = i
-        if tmp_mat[a][b] !=0:
-            break
-    else: 
-        res = max(res,count_safe_area(tmp_mat, tmp_virus_lst))
+    for i in case_lst:
+        a, b = i[0], i[1]
+        tmp_mat[a][b] = 1
+        
+    res = max(res,count_safe_area(tmp_mat, tmp_virus_lst))
+        
 print(res)
-            
-
-        
-        
-
 
 
 
