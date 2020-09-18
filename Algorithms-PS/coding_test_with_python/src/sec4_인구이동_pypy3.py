@@ -1,79 +1,77 @@
-import sys
-input = sys.stdin.readline
-sys.setrecursionlimit(10000)
+from collections import deque
 
-N, L, R = map(int, input().split())
-a = [list(map(int, input().split())) for _ in range(N)]
-check = [[False]*N for _ in range(N)]
-moving = [[False]*N for _ in range(N)]
-cnt = 0
+# 땅의 크기(N), L, R 값을 입력받기
+n, l, r = map(int, input().split())
 
-'''
-----------------------------
-dfs호출하면 
-->
-1. 체크
-2. 해당 좌표 인구 설정 
-3. 4방향으로 나아가는데 -> 
-    - 범위가 맞지 않으면 올리고
-    - 체크가 안되어있고, 조건 맞으면 -> moving에 체크해주고 -> cnt늘려주고 -> 
-    - 인구 += dfs(nx,ny)로 
-----------------------------
-migrate(인구
-- 전체 돌면서 moving에 체크된 좌표의 인구를 수정
-- 수정하고 -> moving을 꺼줘 
------------------------------
+# 전체 나라의 정보(N x N)를 입력 받기
+mat = []
+for _ in range(n):
+    mat.append(list(map(int, input().split())))
 
-'''
-def dfs(x, y):
-    global cnt
-    check[x][y] = True
-    population = a[x][y]
-    for dx, dy in (-1, 0), (0, 1), (1, 0), (0, -1):
-        nx, ny = x+dx, y+dy
-        if nx < 0 or nx >= N or ny < 0 or ny >= N:
-            continue
-        if not check[nx][ny] and L <= abs(a[nx][ny]-a[x][y]) <= R:
-            moving[nx][ny] = True
-            cnt += 1
-            print('----',nx, ny)
-            population += dfs(nx, ny)
-    return population
+dx = [-1, 0, 1, 0]
+dy = [0, -1, 0, 1]
+ 
+#특정 위치에서 출발 -> 모든 연합을 체크한 뒤에 -> 데이터 갱신
 
-def migrate(p):
-
-    print(moving)
-    for i in range(N):
-        for j in range(N):
-            if moving[i][j]:
-                print('###', a)
-                a[i][j] = p
-                moving[i][j] = False
-
-def solve():
-    global check, cnt
-    ans = 0
-    while True:
-        moved = False
-        check = [[False]*N for _ in range(N)]
-        for i in range(N):
-            for j in range(N):
-                if not check[i][j]: #체크가 안되어있으면 -> dfs켜줘
-                    cnt = 1
-                    p = dfs(i,j)
-                    population = p // cnt
+def process(x, y, idx):
+    #(x,y)와 연결된 나라 정보를 담는 리스트
+    united = []
+    united.append((x,y))
+    
+    #BFS로 큐 사용
+    queue = deque()
+    
+    #초기화작헙
+    queue.append((x,y))
+    ck[x][y] = 1 #현재 연합의 번호 할당
+    summ = mat[x][y] #현재 연합의 전체 인구수 
+    cnt = 1 #현재 연합의 국가수 
+    
+    #큐가 빌때까지 
+    while queue:
+        x, y = queue.popleft()
+        #4방향
+        for i in range(4):
+            nx = x + dx[i]
+            ny = y + dy[i]
+            #바로 옆에있는 나라 확인해서 ->
+            if 0 <= nx < n and 0 <= ny < n and ck[nx][ny] == 0:
+                #옆에있는 나라와 인구차이가 맞다면
+                if l <= abs(mat[nx][ny] - mat[x][y]) <= r:
+                    queue.append((nx,ny))
+                    #연합에 추가------------
+                    ck[nx][ny] = 1 #체크해주고 
+                    summ += mat[nx][ny] #더해주고 
+                    cnt += 1#연합수 증가
+                    united.append((nx,ny)) 
                     
-                    #1보다 크면 이동
-                    if cnt > 1:
-                        a[i][j] = population #시작부분을 나눠진 인구로 
-                        migrate(population)
-                        moved = True
+    #연합 국가끼리 인구를 분해
+    for i, j in united:
+        mat[i][j] = summ // cnt
+    
+#_-----------------------------
+total_cnt = 0
+#더이상 인구이동 안할떄까지
+while True:
+    ck = [[0] * n for _ in range(n)]
+    idx = 0
+    
+    done = True
+    for i in range(n):
+        for j in range(n):
+            print('sibal')
+            if ck[i][j] == 0: #처리되지 않은 나라가 있으면 -> 거기에서 처리해주고 
+                process(i, j, idx) #한포인트 처리하고 
+                idx += 1 #1늘려주고 
+    #모든 인구의 이동이 끝나면
+    if idx == n*n:
+        break 
+    total_cnt += 1
+    
+print(total_cnt)
+            
         
-        
-        if moved:
-            ans += 1
-        else:
-            break
-    print(ans)
+    
+    
+    
 
-solve()

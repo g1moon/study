@@ -1,32 +1,38 @@
-'''
-- 7 * 7
-- 동서남북 방향으로 5자길이가 회문인지
-'''
 
-mat = [list(map(int, input().split())) for _ in range(7)]
-#기준을 정하는데  -> 1. 가로로 보는 경우 (y가 2보다 크면 안됨(0,1,2))
-            #->2. 세로로 보는 경우 (x가 2보다 크면 안됨(0,1,2))
-            
-# 그래서 기준을 잡고 
-cnt = 0
+def rotate_a_matrix_by_90_degree(mat):
+    row_len = len(mat) #행길이
+    col_len = len(mat[0]) #열길이 
+    res = [[0] * row_len for _ in range(col_len)] #결과리스트 
+    for i in range(row_len):
+        for j in range(col_len):
+            res[j][row_len-i-1] = mat[i][j]
+    return res 
 
-for x in range(7): #0,1,2,3,4,5,6,7
-    for y in range(3): #0,1,2
-        lst = mat[x][y:y+5]
-        if lst == lst[::-1]:
-            cnt += 1
 
-        for k in range(2): #0, 1, 2
-            if mat[y+k][x] != mat[y+4-k][x]:
-                break
-        else:#break를 당하지 않고 정상적으로 포문이 끝남 
-            cnt += 1
-            
-            
-        
+mat = [[0,1,0], [0,0,0],[0,1,1]]
+print('-----org--------')
+for i in range(len(mat)):
+    print(mat[i])
+print('------rotate_a_matrix_by_90_degree-----------')
+mat1 = rotate_a_matrix_by_90_degree(mat)
+for i in range(len(mat)):
+    print(mat1[i])
+print('------np.rot90()-------------')
+import numpy as np
+print(np.rot90(mat))
 
-        
-print(cnt)
+print('===========================')
+def rotate_90(mat):
+    row_len = len(mat)
+    col_len = len(mat[0])
+    res = [[0] * col_len for _ in range(row_len) ] #row와 col 뒤집어 
+    for row in range(0, row_len): #0 1 2
+        for col in range(0, col_len): #0, 1, 2
+            res[col][row_len - 1 - row] = mat[row][col]
+    return res 
+ 
             
-#0하고 4를 비교해야하니까 
-#그다음에 (1,3) 
+            
+mat = [[0,1,0], [0,0,0],[0,1,1]]
+print(mat)
+print(rotate_90(mat))
