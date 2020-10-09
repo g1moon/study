@@ -28,7 +28,7 @@ def solution(orders, course):
         if v >= 2:
             print(k, v)
             
-    
+     
     return answer
 
 
