@@ -1,46 +1,54 @@
 '''
-- N * N
-- 높이는 서로 다름
-- 해당 돌다리 건널 때 -> 돌의 높이 만큼 에너지 소비 
-- 현재 지점에서 (오른쪽, 아래만 이동가능)
-- (1,1)에서 (N, N) 까지 가는데 드는 에너지의 최소량
+- 거스름돈을 가장 적은 수의 동전으로 교환 
+- 동전은 무한정으로 사용 가능
+- 거스름돈을 가장 적은 수의 동전으로 교환 
+
 
 '''
+import copy 
 
-'''
-solution
-1. mat에서 0행과, 0열은 한쪽 방향으로만 진행가능하기떄문에 -> 쭉 적어줌m 
-2. 그리고 이중 포문으로 -> (왼쪽에서 오는 경우, 위에서 오는 경우) 에서 작은 거를 할당
-'''
+#input()
+n = int(input()) 
+lst = list(map(int, input().split())) #동전 리스트 
+m = int(input()) #저슬러 줄 돈 
+dy = [1000] * (m+1)
+dy[0] = 0
 
-n = int(input())
-
-mat = [ list(map(int, input().split())) for _ in range(n)]
-ck = [[0] * n for _ in range(n)]
-
-
-res = 10000000
-def dfs(x,y, e):
-    global res
-    if x == n-1 and y == n-1:
-        res = min(res, e)
-    if e > res:
-        return
-    
-    ok = False
-    if x+1 >= 0 and y >= 0 and x+1 < n and y < n:
-        dfs(x+1, y, e + mat[x][y])
-        ok = True
-
-    if x >= 0 and y+1 >= 0 and x < n and y < n:
-        dfs(x,y+1, e + mat[x][y])
-        ok = True
+for coin in lst:
+    for i in range(coin, m+1): #코인값을 뺏을때 -> 음수가 되기 위함을 방지
+        #i-coin은 코인을 사용했다는 것이니 -> +1
+        #vs
+        #그냥 현재 값 
+        dy[i] = min(dy[i - coin] + 1, dy[i])
         
-    if not ok:
-        return 
+        
+print(dy[m])
 
+# #
+# for money in range(1, m+1):
+#     # print('money', money)
+#     for coin in lst:
+#         #빼서 음수라면 하지말고
+#         if money - coin < 0:
+#             # print(1)
+#             continue 
+#         #0이면은 뺴주고할다아하고
+#         elif money - coin == 0:
+#             dy[money] = 1
+#             # print(2)
+#             break 
+#         #음수도아니고, 0도 아니면 -> 남은 거 더해줘 
+#         else:
+#             dy[money] = dy[money-coin] + 1
+#             break 
+            
+# print(dy[-1])
+        
+    
+
+    
+            
+        
     
     
 
-dfs(0,0,mat[0][0])
-print(res)
