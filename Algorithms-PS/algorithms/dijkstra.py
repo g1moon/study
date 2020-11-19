@@ -1,109 +1,80 @@
-import heapq
-op = True #특이사항 관리
+'''
+#다익스트라 알고리즘
+-하나의 정점에서 다른 모든 정점 간의 각각 가장 짧은 거리를 구하는 문제
 
-###############함수 정의#####################################
-# 탐색할 그래프와 시작 정점을 인수로 전달받습니다.
-def dijkstra(graph, source, destination):
-    try:
-        # 시작 정점에서 각 정점까지의 거리를 저장할 딕셔너리를 생성하고, 무한대(inf)로 초기화합니다.
-        dist = {node: [float('inf'), source] for node in graph}
-        # 그래프의 시작 정점의 거리는 0으로 초기화 해줌
-        dist[source] = [0, source]
-        # 모든 정점이 저장될 큐를 생성합니다.
-        queue = []
-        # 그래프의 시작 정점과 시작 정점의 거리(0)을 최소힙에 넣어줌
-        heapq.heappush(queue, [dist[source][0], source])
-
-        while queue:
-            # 큐에서 정점을 하나씩 꺼내 인접한 정점들의 가중치를 모두 확인하여 업데이트합니다.
-            crr_distance, crr_node = heapq.heappop(queue)
-            # 더 짧은 경로가 있다면 무시한다.
-            if dist[crr_node][0] < crr_distance:
-                continue
-                
-            for adjacent, weight in graph[crr_node].items():
-                distance = crr_distance + weight
-                # 만약 시작 정점에서 인접 정점으로 바로 가는 것보다 현재 정점을 통해 가는 것이 더 가까울 경우에는
-                if distance < dist[adjacent][0]:
-                    # 거리를 업데이트합니다.
-                    dist[adjacent] = [distance, crr_node]
-                    heapq.heappush(queue, [distance, adjacent])
-        
-        path = destination
-        path_out = destination + ','
-        while dist[path][1] != source:
-            path_out += dist[path][1] + ','
-            path = dist[path][1]
-        path_out += source
-        return dist, path_out
+#로직
+- 첫 정점을 기준으로 연결되어 있는 정점들을 추가해가면 -> 최단거리 갱신
+- BFS와 유사한 방법 
+    - 첫 정점부터 각 노드간의 거리를 저장하는 배열을 만들고
+    - 첫 정점의 인점 노드 간의 거리부터 먼저 계산
+    - 첫 정점부터 해당 노드간의 가장 짧은 거리를 해당 배열에 업데이트
     
-    except:
-        print('경로를 찾는데 문제가 있습니다.')
+#우선순위 큐를 이용한 다익스트라(MinHeap)
+1) 첫 정점을 기준으로 배열을 선언하여 -> 첫 정점에서 각 정점까지의 거리를 저장 
+    - 초기 첫 정점 거리는 0 나머지는 inf
+    - 큐에 (첫 정점, 거리0)만 먼저 넣음 
+2) 우선순위 큐에서 노드를 꺼냄
+    - 처음에는 첫 정점만 
 
-def str_reverse(string):
-    reversed = ''
-    for i in range(len(string)-1, -1,-1):
-        reversed += string[i]
-    return reversed
+'''
 
+mygraph = {
+    '0' : { '4': 2, '1':6, '5':5},
+    '4' : {'0': 2, '1':1, '3':9, '6':4},
+    '5' : {'0':8, '1':5, '3':7},
+    '1' : {'4':1, '0':6 , '5':5, '2':3, '3':8},
+    '2' : {'1':3, '3':1},
+    '3' : {'6':3, '4':9,'1':8,'2':1,'5':7},
+    '6' : {'4':4, '3':3}
+}
 
-#################################################
-f = open('graph_input.txt', 'r')
-data = f.readlines()
-dic = {}
-arr= []
-for d in data:
-    a = d.replace('\n','').split('\t')
-    #특이사항: 노드 이름 중간에 띄어쓰기가 있는 경우 처리
-    a = list(map(lambda x: x.strip(), a))
-    arr.append(a)
-f.close()
-####################################
-dic = {}
-for i in range(1, len(arr)):
-    if int(arr[i][2]) < 0:
-        #특이사항 : edge가 음수인 경우
-        print('edge의 weight가 음수입니다.')
-        op = False
-    try:
-        d = dic[arr[i][0]]
-        d[arr[i][1]] = int(arr[i][2])
-    except:
-        # pass
-        dic[arr[i][0]] = {}
-        d = dic[arr[i][0]]
-        d[arr[i][1]] = int(arr[i][2])
+import heapq 
+
+mygraph = {
+    '0' : { '4': 2, '1':6, '5':8},
+    '4' : {'0': 2, '1':1, '3':9, '6':4},
+    '5' : {'0':8, '1':5, '3':7},
+    '1' : {'4':1, '0':6 , '5':5, '2':3, '3':8},
+    '2' : {'1':3, '3':1},
+    '3' : {'6':3, '4':9,'1':8,'2':1,'5':7},
+    '6' : {'4':4, '3':3}
+}
 
 
-mygraph = dic
-#############################
-source = arr[0][0]
-#특이사항 : source node에 해당하는 것이 graph에 존재하지 않는경우
-if source not in list(mygraph.keys()):
-    print('source node에 해당하는 것이 graph에 존재하지 않습니다.')
-    op = False
-
-if op:
-    F = open('20162673.txt', 'w')
-    done = []
-    try:
-        for i in range(1,len(arr)):
-            destination = arr[i][1]
-            lenghth, shortestPath = dijkstra(mygraph, source, arr[i][1])
-            shortestPath = str_reverse(shortestPath)
+def dij(gr, start):
+    tracker_dic = {node: [] for node in gr.keys()}
+    dist_dic = { node: float('inf') for node in gr.keys()}
+    dist_dic[start] = 0
+    queue = []
+    heapq.heappush(queue, [start, dist_dic[start]])
+    
+    while queue:
+        cur_node, cur_dist = heapq.heappop(queue)
+        if dist_dic[cur_node] < cur_dist:
+            continue
+        
+        #cur_node와 연결된 정보
+        for adj, weight in gr[cur_node].items():
+            tmp_dist = dist_dic[cur_node] + weight #출발지에서 현재까지 + 다음곳으로
             
-            if (destination in done) or (destination == source):
-                continue
-            print('%-10s%-10s%-15s%-10s' % (source, destination,
-                                            shortestPath,
-                                            lenghth[destination][0]))
-            txt = '%-10s%-10s%-15s%-10s\n' % (source, destination,
-                                            shortestPath,
-                                            lenghth[destination][0])
-            done.append(destination)
-            F.write(txt)
+            #adj까지 가는데 -> tmp_dist가 더 짧으면
+            if dist_dic[adj] > tmp_dist:
+                dist_dic[adj] = tmp_dist
+                if tracker_dic[adj]:
+                    tracker_dic[adj] = []#비우고
+                    tracker_dic[adj] = tracker_dic[cur_node]
+                    tracker_dic[adj].append(cur_node)
+                else:
+                    tracker_dic[adj].append(cur_node)
+                
+                heapq.heappush(queue, [adj, dist_dic[adj]])
+            
+    return dist_dic, tracker_dic
 
-    except:
-        pass
-
-F.close()
+a,b = dij(mygraph, '0')
+print(a)
+print(b)
+    
+    
+    
+    
