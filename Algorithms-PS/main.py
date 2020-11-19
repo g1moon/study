@@ -19,9 +19,7 @@ def dij(gr, start, end):
             if tmp_dist < dist_dic[adj][1]:
                 dist_dic[adj] = [cur_node, tmp_dist]
                 heapq.heappush(queue, [adj, tmp_dist])
-                
 
-    
     res = [end]
     cur_node = dist_dic[end][0]
     res.append(cur_node)
