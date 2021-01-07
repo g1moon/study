@@ -30,8 +30,9 @@ const IterationSample3 = () => {
 
     //3. 데이터 삭제(삭제할 id값을 입력으로 필요)
     const onRemove = id => {
-        //
+        //nextNames는 더블클릭 된(눌린) 객체
         const nextNames = names.filter(name => name.id !== id);
+        console.log(nextNames);
         setNames(nextNames);
     };
 
