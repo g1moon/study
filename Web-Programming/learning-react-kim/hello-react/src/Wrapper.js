@@ -16,18 +16,18 @@ export default Wrapper;
 
 
 //App.js
-//-----------------------------------------------
-import React from 'react';
-import Hello from './Hello';
-import Wrapper from './Wrapper';
-
-function App() {
-    return (
-        <Wrapper>
-            <Hello color="red" name="react" />
-            <Hello color="pink"/>
-        </Wrapper>
-    );
-}
-
-export default App;
+// //-----------------------------------------------
+// import React from 'react';
+// import Hello from './Hello';
+// import Wrapper from './Wrapper';
+//
+// function App() {
+//     return (
+//         <Wrapper>
+//             <Hello color="red" name="react" />
+//             <Hello color="pink"/>
+//         </Wrapper>
+//     );
+// }
+//
+// export default App;
