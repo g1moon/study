@@ -1,0 +1,112 @@
+body  {
+    margin: 0;
+    font-family: 'Source Sans Pro';
+}
+a {
+    color : white;
+    text-decoration: none; /*text에 밑줄 제거 */
+}
+.navbar {
+
+    justify-content: space-between;
+    display: flex;
+    background-color: #263343;
+    align-items : center;
+    padding : 8px 12px;
+}
+
+.navbar_logo {
+    color: bisque;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.navbar_logo:hover {
+    padding: 2px 2px;
+
+    background-color: burlywood;
+    border-radius: 10px;
+}
+
+.navbar_menu li:hover {
+    background-color: burlywood;
+    border-radius: 4px;
+}
+
+
+.navbar_menu {
+    display: flex;
+    list-style: none;
+    justify-content: space-around;
+    padding-left: 0;
+
+
+}
+
+.navbar li {
+    padding: 8px 12px;
+}
+
+.navbar_icon {
+    display: flex;
+    color: bisque;
+    padding: 0;
+    justify-content: space-between;
+}
+
+.navbar_icon li {
+
+    padding: 8px 12px;
+    list-style: none; /*리스트의 닷을 제거 */
+}
+
+.navbar_toggleBtn {
+    color: burlywood;
+    position: absolute;
+    right: 28px;
+    display: none; /*넓어진 상태에서는 안 보이게 한다. */
+}
+
+@media screen and (max-width: 768px) {
+
+    .navbar {
+        flex-direction: column;
+        align-items: flex-start;
+        paddding: 8px 24px;
+
+    }
+
+    .navbar_menu {
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        display: none;
+
+
+    }
+
+    .navbar_menu li {
+        width: 100%;
+        text-align: center;
+
+    }
+
+    .navbar_icon {
+        width: 100%;
+        justify-content: center;
+        display: none;
+    }
+    .navbar_toggleBtn {
+        /*토글버튼이 -> 화면이 줄어들면 -> block으로 보이게
+        위에서는 display : none으로 주었음.*/
+        display: block;
+
+    }
+
+    .navbar_icon.active,
+    .navbar_menu.active {
+        display: flex;
+    }
+
+}
+

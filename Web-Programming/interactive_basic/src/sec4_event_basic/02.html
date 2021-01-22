@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Interactive Web</title>
+    <link rel="stylesheet" href="css/reset.css">
+    <style>
+        .stage {
+            /*overflow hidden으로 창 밖으로 넘어가면 스크롤이
+            생기는게 아니라 그냥 안보이게 하겠다.*/
+            overflow: hidden;
+            position: relative;
+            width: 100vw;
+            height: 75vw;
+            background: #fff000;
+        }
+        /*animation*/
+        @keyframes moving {
+            from {
+                transform: translateX(0); /*안움직임*/
+            }
+            to {
+                transform: translateX(90vw);/*90까지*/
+            }
+        }
+        .ilbuni {
+            /*일부니들이 절대 위치를 잡을때 기준을 stage에서 잡게 */
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            background-repeat: no-repeat;
+            background-position: 50% 50%;
+            background-size: contain;
+            /*3초동안 왔다갔다하게 하려구
+            from -> to -> from -> to
+            alternate 옵션을 줘야한다. 안 주면
+            from -> to 끝*/
+            animation: moving infinite alternate;
+        }
+        /*각각의 일분이들에게 속도를 다르게 주기 위해
+        animation-duratioin을 다르게 설정. */
+        .ilbuni.a {
+            left: 5%;
+            bottom: 5%;
+            background-image: url('images/ilbuni_0.png');
+            animation-duration: 5s;
+        }
+        .ilbuni.b {
+            left: 10%;
+            bottom: 3%;
+            background-image: url('images/ilbuni_1.png');
+            animation-duration: 3s;
+        }
+        .ilbuni.c {
+            left: 7%;
+            bottom: 10%;
+            background-image: url('images/ilbuni_2.png');
+            animation-duration: 4s;
+        }
+    </style>
+</head>
+<body>
+    <div class="stage">
+        <div class="ilbuni a"></div>
+        <div class="ilbuni b"></div>
+        <div class="ilbuni c"></div>
+    </div>
+
+    <script>
+        (function f() {
+            let stage = document.querySelectorAll('.stage');
+            stage = stage[0];
+
+            function clickListener(e) {
+                // if (e.target.classList.contains('ilbuni')) {
+                //     this.removeChild(e.target);//선택한 것 삭제
+                // }
+                if (e.target != this) {
+                    this.removeChild(e.target);//선택한 것 삭제
+                }
+            }
+            //this는 stage
+            stage.addEventListener('click', clickListener);
+        })();
+    </script>
+</body>
+</html>

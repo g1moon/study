@@ -7,14 +7,65 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
 </head>
+
+<style>
+    img {
+        max-width: 100%;
+    }
+
+    .content {
+        height: 1000vh; /*10배*/
+        padding: 20%;
+        background: yellowgreen;
+    }
+
+    .output {
+        position  : fixed; /*스크롤 내려도 */
+        left: 0;
+        top: 0;
+        width: 100%;
+        font-size: 2rem;
+        font-weight: 200;
+        color : #fff;
+        background: rgba(0,0,0,0.4);
+    }
+
+    .ilbuni {
+        width: 100px;
+        margin: 20px auto;
+        transition: 1s;
+    }
+
+    /*일분이에 zoom이라는 클래스가 붙으면 -> 크기를 두배*/
+    .ilbuni.zoom {
+        transform: scale(2);
+    }
+</style>
 <body>
     <div class="output">output</div>
     <div class="content">
         <p>
             Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad beatae, commodi consectetur corporis debitis, delectus eius est labore maiores maxime nam nihil perferendis placeat praesentium ratione repellendus voluptates? Eos, magnam.
         </p>
-        <img src="images/ilbuni_0.png" alt="일분이">
+        <figure class="ilbuni">
+            <img src="images/ilbuni_0.png" alt="일분이"
+        </figure>
+
     </div>
+
+    <script>
+        (function () {
+            //output을 찾고
+            const outputElem = document.querySelector('.output');
+            const ilbuniElem = documnet.querySelector('.ilbuni');
+            //스크롤 이벤트 처리 -> 스크롤 하면 -> html을 바꿔줌
+            window.addEventListener('scroll', function () {
+                // outputElem.innerHTML = window.pageYOffset;
+                outputElem.innerHTML =
+            });
+        })();
+
+    </script>
 
 </body>
 </html>

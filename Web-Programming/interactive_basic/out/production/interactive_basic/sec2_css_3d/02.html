@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Interactive Web</title>
+    <style>
+        .world {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 60vw;
+            height: 60vh;
+            background: #fff000;
+            perspective: 500px;
+        }
+        .card {
+            position: relative; /*스테틱이 아니게*/
+            width: 100px;
+            height: 150px;
+            margin: 1em;
+            /*처음에 0도는 아무것도 안한건데, 그렇다하더라도 처음에
+            브라우저에서 얘를 랜더링 할때 0도를 인식하면 -> 카드자체가
+            준비를 한다. -> 얘는 뭔가 transform: rotate로 하겠구나..준비
+            -> 성능에 조금 도움을 준다.*/
+            transform: rotateY(0deg);
+            transition: 1s;
+            /*월드 안에 있는 카드들이 효과가 잘 적용려면
+            카드사이드 앞뒤를 감싸는 card에도 3d속성을 부여해줘야 한다. */
+            transform-style: preserve-3d;
+
+            /*가운데로 돌아가는게 아니라 왼쪽을 기준으로 돌아감.
+            그리고 반대로 돌리고 싶으면 호버일때 180이 아닌 -180을 돌려주면된다.*/
+            transform-origin: left; /*or 0%*/
+        }
+        .card-side {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: absolute; /*카드 앞 뒤를 포갤거니까.*/
+            left: 0;
+            top: 0;
+            /*부모인 카드에서 크기를 결정해줬읜까 100%로 해주는게 편*/
+            width: 100%;
+            height: 100%;
+            border-radius: 0.5em;
+            font-size: 1.5rem;
+            /*뒷면을 안보이게 설정해준다.*/
+            /*하나만 선택해서 적용하는 건데, 맨 마지막에 표준형태를 적는게 좋음
+            표준 속성을 잘 지원하는 크롬에서 표준형태를 위에 적용하면
+            접두어가 붙은 속성이 적용될 수 있음....*/
+            -webkit-backface-visibility: hidden; /*웹킷 기반 사파리를 위한*/
+            -moz-backface-visibility: hidden;
+            -o-backface-visibility: hidden;
+            -ms-backface-visibility: hidden;
+            backface-visibility: hidden; /*크롬 등등*/
+        }
+        .card-side-front {
+            z-index: 1; /*앱솔루트로 겹쳤을 때 앞면이 앞으로 오도록*/
+            background: white; /*앞면은 흰색*/
+        }
+        .card-side-back {
+            background: red; /*뒷면은 빨간색으로*/
+            /*앞면은 건들지말고 뒷변은 180도 돌려둔다.*/
+            transform: rotateY(180deg);
+        }
+
+        /*백그라운드에 마우스를 올리면 카드가 -> 회전 */
+        .world:hover .card {
+            transform: rotateY(180deg);
+        }
+    </style>
+</head>
+<body>
+    <div class="world">
+        <!--카드 안에 카드 앞면과 뒷면을 나눠준다.
+        card-side 클래스를 공통으로 갖고 있음.
+        그리고 world뿐만 아니라 카드에도 3d효과를 미치도록 속성을 세팅해야함. -->
+        <div class="card">
+            <!--이렇게 하면 포지션 두개가 앱솔루트일떄 마지막게 위로 올라옴
+            즉 B가 위로 올라오는데 (z-index주기 이전 상황)
+            근데 이렇게하면 -> 걍 포개지고 -> 돌리면 이상함->
+            뒤를 180도 뒤집고 앱솔루트로 포개야한다.-->
+            <div class="card-side card-side-front">F</div>
+            <div class="card-side card-side-back">B</div>
+        </div>
+    </div>
+</body>
+</html>

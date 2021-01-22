@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Interactive Web</title>
+    <style>
+        body {
+            background: #222;
+        }
+        /*gif는 안되지만 투명한 png는 투명한 알파체널이 적용된다.
+        그리고 코드로, 그리고 에니메이션을 코도로 조정할 수 있다.*/
+        @keyframes spaceship-ani {
+            /*100%와 같음 0에서 100 -> from to로 할 수 있음.*/
+            to {
+                /*animation으로 백그라운드 포지션을 조정을해주는데
+                 스텝을 설정 안해주면 쭉 흘러가니까 스텝스로
+                 이미지가 0위치고 -150씩 화살표 방향으로 흘러가는데
+                 마지막 이미지가 여기 올 떄 -2550  */
+                background-position: -2550px 0; /*0(초기값)에서 -2550픽셀까지 */
+            }
+        }
+        .spaceship {
+            width: 150px;
+            height: 150px;
+            background: url('images/sprite_spaceship.png') no-repeat 0 0 / cover;
+            /*animation delay @ @ */
+            animation: spaceship-ani 1s infinite steps(17);
+        }
+    </style>
+</head>
+<body>
+    <div class="spaceship"></div>
+</body>
+</html>

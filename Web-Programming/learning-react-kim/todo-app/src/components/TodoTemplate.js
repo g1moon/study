@@ -4,7 +4,7 @@
 - children으로 내부 JSX를 props로 받아 와서 렌더링한다
  */
 import React from 'react';
-import '../TodoTemplate.scss';
+import './TodoTemplate.scss';
 
 const TodoTemplate = ({children}) => {
     return (

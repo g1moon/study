@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Interactive Web</title>
+    <style>
+        .world {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 80vw; /*뷰포트 단위 : 창크기에서 60퍼센트 */
+            height: 80vh;
+            background: #fff000;
+            /*원근감 속성을 해주면 3d로 변해진다.
+            perspective
+            멀리있는 경우보다 가까이 있을 때 더 극적으로 3d효과가 날 것임
+            그 값을 조정하는 perspective 500px보다 1000px이 3d효과가 덜 남.*/
+            /*perspective: 500px;*/
+		}
+		.card {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			width: 100px; /*카드사이에 간격 -> 폰트사이즈 비례해서*/
+			height: 150px;
+			border-radius: 0.5em; /*em은 현재의 폰트사이즈 기준 font-size에 상대적인 0.5*/
+			font-size: 1.5rem; /*무조건 루트html폰트사이즈 기준*/
+			background: red;
+			transform: rotateY(45deg); /*Y축으로 */
+            /*회전되는 엘리먼트 자체에 적용*/
+            transform: perspective(500px) rotateY(45deg);
+		}
+    </style>
+</head>
+<body>
+    <div class="world">
+		<div class="card">A</div>
+		<div class="card">B</div>
+		<div class="card">C</div>
+    </div>
+</body>
+</html>

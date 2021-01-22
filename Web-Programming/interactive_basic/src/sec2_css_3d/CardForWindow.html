@@ -2,9 +2,62 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>$Title$</title>
+    <title>Title</title>
+    <style>
+
+        .world {
+            width: 60vw;
+            height: 60vh;
+            background: #fff000;
+            /*월드안에있는 두 카드를 센터로 */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .card-side {
+            position: absolute; /*카드 겹쳐주기*/
+            width: 100px;
+            height: 150px;
+            backface-visibility: hidden;
+            transition: 1s;
+
+            /*카드안에 font 가운데로 조정*/
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+        }
+
+        .card-side-front {
+            background-color: white;
+        }
+
+        .card-side-back {
+            background-color: red;
+            transform : rotateY(180deg);
+        }
+
+        .world:hover .card-side-front {
+            transform: rotateY(180deg);
+        }
+
+        .world:hover .card-side-back {
+            transform: rotateY(360deg);
+
+        }
+
+
+    </style>
 </head>
+
+
 <body>
-$END$
+
+<div class="world">
+    <div class="card-side card-side-front">F</div>
+    <div class="card-side card-side-back">B</div>
+</div>
+
 </body>
 </html>

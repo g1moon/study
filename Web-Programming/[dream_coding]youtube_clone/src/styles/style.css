@@ -1,0 +1,263 @@
+:root {
+    /*Color*/
+    --white-color: #fff;
+    --black-color: #140a00;
+    --blue-color: #045fd4;
+    --red-color: #ff0000;
+    --grey-dark-color: #909090;
+    --grey-light-color: #e0e0e0;
+
+    /*size*/
+    --size-padding: 12px;
+    --avatar-size: 36px;
+
+    /*fontsize*/
+    --font-large: 18px;
+    --font-medium: 14px;
+    --font-small: 12px;
+    --font-micro: 10px;
+}
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+button,
+button:focus {
+    border: none;
+    cursor: pointer;
+    background-color: white;
+
+
+}
+
+body {
+    font-family: Roboto;
+}
+
+/*Header*/
+header{
+    background-color: var(--black-color);
+    display: flex;
+    justify-content: space-between;
+    padding : var(--size-padding)
+}
+
+header > div.logo > i {
+    top: 0;
+
+    color: var(--red-color);
+
+}
+
+header > div.logo > span {
+    color: var(--white-color);
+    font-size: var(--font-large);
+    font-weight: bold;
+}
+
+header > div.sidebar > i {
+    color: var(--white-color);
+    font-size: var(--font-large);
+    padding-right: 10px;
+    padding-left: 10px;
+}
+
+/*player*/
+section.player {
+    position: sticky;
+    top: 0;
+
+}
+section.player iframe {
+    width: 100%;
+    max-width: 1000px;
+
+
+
+}
+
+/*info*/
+section.info {
+    padding: var(--size-padding);
+
+}
+section.info div.hashtag ul li{
+    color: var(--blue-color);
+    margin-right: 5px;
+    font-size: var(--font-small);
+}
+
+
+section.info div.hashtag ul{
+    display: flex;
+    list-style: none;
+
+}
+
+section.info div.title {
+    display: flex;
+    font-size: var(--font-medium);
+    margin-right: var(--size-padding);
+}
+section.info div.title .moreBtn {
+    height: 100%;
+    color: var(--grey-dark-color);
+}
+
+section.info div.view_date{
+    font-size: var(--font-small);
+    color: var(--grey-dark-color);
+}
+
+
+section.info > ul.select {
+    padding: var(--size-padding);
+    list-style: none;
+    display: flex;
+    justify-content: space-around;
+    margin: var(--size-padding) 0;
+
+
+}
+
+
+section.info ul.select li {
+    display: flex;
+    flex-direction: column;
+    font-size: var(--font-small);
+
+
+
+}
+section.info ul.select li button i {
+    padding-bottom: calc(var(--size-padding) / 2);
+    margin: 0 auto;
+    font-size: 18px;
+    color: var(--grey-dark-color);
+}
+
+section.info ul.select button i.fa-thumbs-up {
+    color: var(--blue-color);
+}
+
+
+
+/*channel*/
+section.info div.channel {
+    margin: 0;
+    border-top: var(--grey-light-color) solid 1px;
+    border-bottom: var(--grey-light-color) solid 1px;
+    padding:  var(--size-padding);
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+
+}
+
+section.info div.channel img {
+    width: calc(var(--avatar-size) + 3px);
+    height: calc(var(--avatar-size) + 3px);
+    border-radius: 50px;
+}
+
+section.info div.channel div.meta {
+    display: flex;
+}
+
+div.channel .subs {
+    padding-right: 10px;
+}
+section.info div.channel div.meta div.channel_info {
+    padding-left: var(--size-padding);
+    display: flex;
+    flex-direction: column;
+}
+
+section.info div.channel div.meta div.channel_info span.num_subs {
+    font-size: var(--font-small);
+    color: var(--grey-dark-color);
+}
+section.info div.channel div.meta div.channel_info span.channel_name {
+    font-size: var(--font-medium);
+}
+
+section.info div.channel div.subs {
+
+}
+
+section.info div.channel div.subs button {
+    color: var(--red-color);
+    font-size: var(--font-medium);
+    font-weight: bold;
+}
+
+/*upNext*/
+section.upNext {
+    padding: 0 var(--size-padding);
+}
+section.upNext span.upNext_title {
+    color: var(--grey-dark-color);
+}
+
+section.upNext img {
+
+}
+section.upNext ul {
+    font-size: var(--font-medium);
+}
+
+
+
+section.upNext ul li {
+    display: flex;
+    padding: var(--size-padding);
+}
+section.upNext ul li div.info {
+    justify-content: center;
+    padding: var(--size-padding);
+    display: flex;
+    flex-direction: column;
+}
+
+
+
+section.upNext ul li div.info span.channel_name {
+    font-size: var(--font-small);
+    color: var(--grey-dark-color);
+}
+section.upNext ul li div.info span.view_num {
+    font-size: var(--font-small);
+    color: var(--grey-dark-color);
+
+}
+
+
+section.upNext .item img {
+    flex: 1 1 35%;
+}
+section.upNext .item div.info {
+    flex: 1 1 60%;
+}
+section.upNext .item div.moreBtn {
+    flex: 1 1 5%;
+}
+
+section.upNext button {
+    height: 100%;
+
+
+}
+
+/*768픽셀 이상일떄 적용이 된다.*/
+@media screen and (min-width: 768px) {
+
+
+}
+
+
+
+
+

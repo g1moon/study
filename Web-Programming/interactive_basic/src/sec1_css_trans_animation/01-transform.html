@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Interactive Web</title>
+    <link rel="stylesheet" href="css/reset.css">
+    <style>
+        .box-container {
+            display: flex;
+        }
+        .box {
+            width: 100px;
+            height: 100px;
+            border: 2px solid black;
+            background: rgba(255, 255, 0, 0.7);
+            transition: 1s;
+
+        }
+        .box:hover {
+            transform: scale(2) rotate(15deg); /*밀어내지 않음 2배 키우고 15도 */
+            /*transform: skewY(-30deg); !*y축으로 할 수 있, 음수도 가능 *!*/
+            /*transform: translate(30px, 10px); !*x축이동 y축이동 *!*/
+            /*transform: translateY(-30px);*/
+            /*transform-origin: 100% 100% ; !*크기가 커지는 게 중앙인데 origin을 설정해 기준을 변경 줄 수 있음 right bottom, *!*/
+            /*transform-origin: right bottom ; !*크기가 커지는 게 중앙인데 origin을 설정해 기준을 변경 줄 수 있음 right bottom, *!*/
+            /*z축도 있는데 css3d를 배우고 해보자*/
+
+
+        }
+    </style>
+</head>
+<body>
+    <h1>CSS Transform</h1>
+    <p>
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perspiciatis labore ab, dignissimos quod consequatur quos officia minima sit possimus, omnis quibusdam reprehenderit odio praesentium culpa eveniet aliquam soluta consequuntur, eum inventore impedit eos dolores dolor, porro! Harum, vero, quod? Porro quia, consectetur? Esse exercitationem quas pariatur hic autem quis ad quidem rem. Necessitatibus exercitationem repudiandae, sequi alias eum deserunt itaque cum optio. Vitae magnam, officiis iure necessitatibus, sequi quo exercitationem molestias est veniam rerum facere. Distinctio ut aliquam, dolores reprehenderit blanditiis magni corporis obcaecati quibusdam necessitatibus quo quasi, unde quis commodi facere omnis quia perspiciatis harum ipsa nostrum. Doloribus, a.
+    </p>
+    <div class="box-container">
+        <div class="box">A</div>
+        <div class="box">B</div>
+        <div class="box">C</div>
+        <div class="box">D</div>
+        <div class="box">E</div>
+    </div>
+    <p>
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Error ipsam eveniet totam placeat omnis corporis possimus similique laudantium, minima voluptatem suscipit, saepe dolor vero dicta, reprehenderit nihil magnam asperiores dolorem, perspiciatis qui nemo rerum ipsa officiis mollitia. Dolore quidem laudantium labore magnam mollitia quisquam, consequuntur et. Quod amet eveniet natus voluptate enim! Hic veniam nostrum illum ullam fugiat amet quaerat quibusdam sint facere, doloribus, deleniti autem laudantium eum accusantium labore dolorum tenetur recusandae distinctio, sit at sequi perferendis delectus! Ut tenetur incidunt natus atque, ipsum! Amet sunt, commodi atque fugit ratione recusandae perspiciatis ut natus, mollitia, harum aut iure doloribus.
+    </p>
+</body>
+</html>

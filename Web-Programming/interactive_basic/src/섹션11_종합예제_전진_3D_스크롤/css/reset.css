@@ -1,0 +1,47 @@
+html, body, h1, h2, h3, h4, h5, h6, p, blockquote, code, img, dl, dt, dd, ol, ul, li, fieldset, legend, caption { margin: 0; padding: 0; border: 0; }
+div, span, article, section, header, footer, p, ul, li, fieldset, legend, label, a, nav { box-sizing: border-box; }
+/*디스플레이 block
+바디의 높이가 컨텐츠 높이인데 ->
+html,body 태그 둘 다 display: block
+-> width는 꽉 차고 (부모의 폭 만큼 늘어날 수 있는 만큼 늘어남)
+height 같은 경우는 내가 가진 자식의 높이 만큼만 늘어남 (자식이 없으면 height : 0)
+body자체가 최소한 브라우저 높이 정도는 인식을해야 수월한 경우가 많음 ->
+그래서 최상위 엘리먼트 html에 높이를 꽉 차게 만들고,
+바디도 최소한 그 만큼만 차게 설정을 해줌
+*/
+html {
+    height: 100%; /*이 부분만 조금 주의*/
+}
+body {
+    min-height: 100%; /*이 부분만 조금 주의*/
+
+}
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+}
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+ol,
+ul {
+	list-style: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Interactive Web</title>
+    <style>
+            /*아래부터 타임라인 처음이0% 중간이50% 끝이 100%*/
+            /*시작점에서 이동을하지 않*/
+            0% {
+                transform: translate(0, 0);
+                /*opacity : */
+            }
+            /*red로 바꾸고, x로 300px*/
+            50% {
+                background: red;
+                transform: translate(300px, 0);        @keyframes sample-ani { /*keyframes를 쓰고 애니메이션 이름을 명*/
+
+                                                       }
+            100% {
+                transform: translate(400px, 500px);
+            }
+        }
+        .box {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100px;
+            height: 100px;
+            border: 2px solid #000;
+            background: #fff000;
+            /*위에서 지정한 것을 명시해주면된다*/
+            /*transition과 똑같이 2s동안 실행이 된다.*/
+            /*가속도를 linear로 해주고, 애니메이션이 계쏙 반복 infi*/
+            animation: sample-ani 2s linear forwards 3;  /*3번실행*/
+        }
+    </style>
+</head>
+<body>
+    <h1>Animation</h1>
+    <div class="box">BOX</div>
+</body>
+</html>

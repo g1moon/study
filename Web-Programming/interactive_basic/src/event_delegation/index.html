@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Interactive Web</title>
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div class="menu">
+
+<!--    <button class="menu-btn" data-value='1'>-->
+<!--        <img class = icon src="./images/ilbuni_1.png"  alt="" >-->
+<!--        <span class="btn-label">일분이1</span>-->
+<!--    </button>-->
+
+<!--    <button class="menu-btn" data-value='2'>-->
+<!--        <img class = icon src="./images/ilbuni_2.png"  alt="" >-->
+<!--        <span class="btn-label">일분이2</span>-->
+<!--    </button>-->
+
+<!--    <button class="menu-btn" data-value='3'>-->
+<!--        <img class = icon src="./images/ilbuni_3.png"  alt="" >-->
+<!--        <span class="btn-label">일분이3</span>-->
+<!--    </button>-->
+
+</div>
+
+<script>
+
+    let buttons = document.querySelectorAll('.menu');
+    buttons = buttons[0]
+
+    function clickListener(e) {
+        if (!e.target.classList.contains('menu')) {
+            let tmp = e.target;
+            while (true) {
+                if (tmp.classList.contains('menu-btn')) {
+                    break
+                }
+                tmp = tmp.parentNode;
+            }
+            console.log(tmp.attributes['data-value']); // data-value = '2'
+            console.log(tmp.attributes['data-value'].value); //2
+
+            console.log(tmp.dataset); //DOMStringMap{value: "2"}
+            console.log(tmp.dataset['value']); //2
+
+            // console.log(tmp.dataset.value);
+        }
+    }
+    buttons.addEventListener('click', clickListener)
+
+    //----------클릭시에 나타나게--------------------------------
+    window.addEventListener('click', function(){
+        const htmlStr = `
+            <button class="menu-btn" data-value='1'>
+        <img class = icon src="./images/ilbuni_1.png"  alt="" >
+        <span class="btn-label">일분이1</span>
+    </button>
+
+    <button class="menu-btn" data-value='2'>
+        <img class = icon src="./images/ilbuni_2.png"  alt="" >
+        <span class="btn-label">일분이2</span>
+    </button>
+
+    <button class="menu-btn" data-value='3'>
+        <img class = icon src="./images/ilbuni_3.png"  alt="" >
+        <span class="btn-label">일분이3</span>
+    </button>
+        `
+
+        console.log(buttons);
+        // buttons.innerHTML = htmlStr;
+    });
+
+</script>
+
+</body>
+</html>
