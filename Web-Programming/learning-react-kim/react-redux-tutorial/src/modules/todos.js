@@ -6,7 +6,19 @@ const REMOVE = 'todos/REMOVE'; //todo 제거
 //액션 생성 함--------------------------------------------
 //타입은 위에 정의한 액션 타입이고,
 //나중에 action으로 사용될 것들 (input, text, id)
-
+//---------------------------------------------------------------------__
+// export const changeInput = createAction(CHANGE_INPUT, input => input);
+//
+// let id = 3; // insert 가 호출 될 때마다 1씩 더해집니다.
+// export const insert = createAction(INSERT, text => ({
+//     id: id++,
+//     text,
+//     done: false,
+// }));
+//
+// export const toggle = createAction(TOGGLE, id => id);
+// export const remove = createAction(REMOVE, id => id);
+//---------------------------------------------------------------------__
 export const changeInput = input => ({
     type: CHANGE_INPUT,
     input
@@ -74,8 +86,10 @@ function todos(state = initState, action) {
         case REMOVE:
             return {
                 ...state,
-                todos : todos.filter(todo =>
-                todo.id !== action.id)
+                todos: {
+                    todos.filter(todo =>
+                        todo.id !== action.id)
+                }
             };
 
         default:
@@ -83,5 +97,14 @@ function todos(state = initState, action) {
     }
 }
 
-exprot default todos;
+export default todos;
 
+
+const todos = handleActions(
+    {
+        [CHANGE_INPUT]: (state, action) => ({...state, input: action.payload}),
+        [INSERT]: (state, action) => ({
+            ...state,
+            todos: state.todos.concat(action.payload)
+        })
+    }

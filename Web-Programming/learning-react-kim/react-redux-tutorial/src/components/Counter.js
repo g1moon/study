@@ -1,3 +1,4 @@
+//components/counter.js
 import React from 'react';
 
 const Counter = ( {number, onIncrease, onDecrease}) => {
