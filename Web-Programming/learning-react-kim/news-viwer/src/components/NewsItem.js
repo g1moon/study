@@ -3,6 +3,7 @@ import styled from 'styled-components';
 
 const NewsItemBlock = styled.div`
   display: flex;
+
   .thumbnail {
     margin-right: 1rem;
     img {
@@ -30,26 +31,24 @@ const NewsItemBlock = styled.div`
     margin-top: 3rem;
   }
 `;
-
-const NewsItem = ({article}) => {
-    const {title, desc, url, urlToImage} = article;
+const NewsItem = ({ article }) => {
+    const { title, description, url, urlToImage } = article;
     return (
         <NewsItemBlock>
             {urlToImage && (
-                <div className='thumbnail'>
-                    <a href={url} target='_blank' rel='noopener noreferrer'>
-                        <img src={urlToImage} alt="thumbnail"/>
+                <div className="thumbnail">
+                    <a href={url} target="_blank" rel="noopener noreferrer">
+                        <img src={urlToImage} alt="thumbnail" />
                     </a>
                 </div>
             )}
-
-            <div className='contents'>
+            <div className="contents">
                 <h2>
-                    <a href={url} target='_blank' rel='noopener noreferrer'>
+                    <a href={url} target="_blank" rel="noopener noreferrer">
                         {title}
                     </a>
                 </h2>
-                <p>{desc}</p>
+                <p>{description}</p>
             </div>
         </NewsItemBlock>
     );
