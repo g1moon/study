@@ -32,49 +32,66 @@ app.post('/api/users/register', (req, res) => {
     });
 });
 
+
+
 //login
 app.post('/api/users/login', (req, res) => {
-    //디비에서 요청한 Email 찾고
-    //console.log(req.body); //{ email: 'goo@naver.com', password: '12345667' }
-
-    //디비에서 요청한 이메일이 있다면 -> 비밀번호 같은지
-    let login = false;
-    User.findOne({email: req.body.email}, function (err, matchedItem) {
-        if (matchedItem) {
-            // console.log('matchedItem.password: ',  (matchedItem.password)); //$2b$10$fmkK/a8/wL12ywC1rcmApOWfIiJCEumj8Ex2jK3HW7DDO/q26seS6
-            // console.log('req.body.password: ',  (req.body.password)); //pooky12345
-            bcrypt.compare(req.body.password, matchedItem.password, function (err, isMatch) {
-                if (!isMatch) {
-                    return res.json({loginSuccess: false, message: '비밀번호가 틀렸습니다'}); //
-                }
-            });
-        } else {
-            return res.json({loginSuccess: false, message: '이메일이 존재하지 않습니다'})
+    //요청된 이메일 찾고 ->
+    User.findOne({email: req.body.email}, (err, matchedUser) => {
+        if (!matchedUser) {
+            return res.json({loginSucces : false, message : '등록된 이메일이 아닙니다.'})
         }
-
-        //여기까지 오면 성공 -> 토큰 생성하고 토큰 저장
-        //user._id + '' = token
-        // console.log((req.body)); //{ email: 'pooky@naver.com', password: 'pooky12345' }
-        const token = jwt.sign(matchedItem._id.toHexString(), 'secretToken'); //토큰만들고
-        matchedItem.token = token; //토큰 저장해주고
-        matchedItem.save((err, saveResult) => {
-            console.log('save');
-            if (err) {
-                return res.status(400).send(err);
+        //이메일 맞은 사람이 오는데 -> 비밀번호 맞는지 확인
+        matchedUser.checkPassword(req.body.password, (err, isRightPassword) => {
+            if (!isRightPassword) {
+                res.json({loginSucces: false, message: '비밀번호가 틀렸습니다.'})
             }
-            //토큰을 저장하는데 쿠키에
-            res.cookie('x_auth', user.token)
-                .status(200)
-                .json({loginSucces : true, userId: matchedItem._id})
+            //비밀번호 맞아 그럼 -> 토큰 생성하고 등록해주자
+            matchedUser.generateToken((err, matchedUser) => {
+                if (err) {
+                    return res.status(400).send(err);
+                }
 
+                //토큰 줫으니까 토큰 쿠키에 저장해주기
+                res.cookie('x_auth', matchedUser.token)
+                    .status(200)
+                    .json({ loginSucces:true, userId: matchedUser._id}) //성공과 아이디
+            });
         });
-        return res.json({loginSuccess : true, message: '성공 2!!'})
-
     });
-    //같다면 token생성
 });
 
+//auth role0 -> user, !0 -> 관리자
+// role 1 어드민    role 2 특정 부서 어드민
+// role 0 -> 일반유저   role 0이 아니면  관리자
+const {auth} = require('./middleware/auth');
+app.get('/api/users/auth', auth, (req, res) => {
+    //여기 까지 미들웨어를 통과해 왔다는 얘기는  Authentication 이 True 라는 말.
+    res.status(200).json({
+        _id: req.user._id,
+        isAdmin: req.user.role === 0 ? false : true,
+        isAuth: true,
+        email: req.user.email,
+        name: req.user.name,
+        lastname: req.user.lastname,
+        role: req.user.role,
+        image: req.user.image
+    })
+})
 
+//logout은 -> 그냥 아이디값 찾아서 -> 토큰값을 비워
+app.get('/api/users/logout', auth, (req, res) => {
+
+    User.findOneAndUpdate({"_id": req.user._id},
+        {token: ''},
+        (err, user) => {
+            if (err) {
+                return res.json({success: false, err});
+            } else {
+                return res.status(200).json({success: true,});
+            }
+        });
+});
 
 //listener
 const port = 5000;
