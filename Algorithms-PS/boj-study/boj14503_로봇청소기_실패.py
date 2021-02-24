@@ -1,6 +1,7 @@
 # https://www.acmicpc.net/problem/132
-# boj 1325 S3 스타트와 링크 
-# <메모리 : 129196, 시간 744>
+# boj 14503 G5 로봇청소기
+# <메모리 : , 시간 > -> 실패..
+#예제는 다 맞는데 어느 부분에서 틀린건지 모르겠네요... 
 '''
 - (n*m)
 - 벽 or 빈칸 
@@ -9,15 +10,9 @@
 - c: 서쪽으로 떨어진 칸의 개수 
 - d: 0, 1, 2, 3 (북, 동, 남, 서)
 
-- 현재 위치 청소 
-- 현재 방향을 기준으로 왼쪽보고 -> 청소 안 했으면 -> 회전 -> 전진
--                        -> 
-
 '''
 import sys
 input = sys.stdin.readline
-
-
 
 #input-----------
 n, m = map(int, input().split())
@@ -56,7 +51,7 @@ def turn_left(x, y ,d):
         return x, y, 3
     return x, y, d-1
 
-def return_left_coord(x,y,d): #돌고 전진한 위치 
+def return_left_fwd_coord(x,y,d): #돌고 전진한 위치
     nx, ny, nd = turn_left(x,y,d) #돌고 
     nx, ny, nd = go_fwd(nx, ny, nd)
     return nx,ny, nd
@@ -73,7 +68,7 @@ while True:
 
     #step2
     for _ in range(4):
-        nx, ny, nd = return_left_coord(x,y,d)
+        nx, ny, nd = return_left_fwd_coord(x,y,d)
         if nx < 0 or ny < 0 or nx >=n or ny >= m:
             x, y, d = turn_left(x,y,d) #그냥 회전만 
             continue 
@@ -91,28 +86,4 @@ while True:
             break 
         
 print(cnt)
-
-
-
-    
-
-
-    
-        
-    
-
-    
-
-
-    
-   
-    
-    
-        
-        
-    
-
-    
-
-
 
