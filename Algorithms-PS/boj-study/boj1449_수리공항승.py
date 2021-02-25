@@ -1,11 +1,9 @@
-# https://www.acmicpc.net/problem/9465
-# boj 9465 S2 스티커 
-# <메모리 : 185980, 시간 : 340 >
-#예제는 다 맞는데 어느 부분에서 틀린건지 모르겠네요... 
+# https://www.acmicpc.net/problem/1449
+# boj 1449 S3 수리공 항승
+# <메모리 : 123560, 시간 : 132 >
 '''
--가장 왼쪽에서 정수만큼 떨어진 거리만 물이 샌다
-- (길이가 L인 테이프 무한개)
-- 좌우 0.5 간격을 줘야 -> 물이 다시 안 샌다.
+- 막아야하는 모든 부분을 리스트에 넣고 (누수점-0.5, 누수점, 누수점+0.5)
+- 정렬시켜서 앞에서부터 막으면서 카운트
 '''
 from collections import deque
 
@@ -27,10 +25,6 @@ def solution(n, l, lst):
             
     return cnt
 
- 
-        
-    
-    
 #--------------
 import sys 
 input = sys.stdin.readline

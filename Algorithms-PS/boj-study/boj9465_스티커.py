@@ -1,7 +1,6 @@
 # https://www.acmicpc.net/problem/9465
 # boj 9465 S2 스티커 
 # <메모리 : 185980, 시간 : 340 >
-#예제는 다 맞는데 어느 부분에서 틀린건지 모르겠네요... 
 '''
 - 현재에서 max(대각선에서 온 것, 2개 컬럼 전 최대 값)
     -> 즉 dp[row][col] = max(dp[0][col-2], dp[1][col-2], dp[1][col-1]) + mat[row][col]        
