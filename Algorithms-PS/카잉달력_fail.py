@@ -1,5 +1,13 @@
-# https://www.acmicpc.net/problem/6065
-# boj 6065 S1 카잉달력 
+# https://www.acmicpc.net/problem/1759
+# boj 2529 S2 부등호 
+#<메모리 : 127492, 시간 : 192>
+import sys
+input = sys.stdin.readline
+'''
+# -----솔루션--------------------------
+- 1. ck 함수 내 조건 만족하고 
+- 2. used에 없으면 
+'''
 
 import sys
 input = sys.stdin.readline
