@@ -1,56 +1,60 @@
-# https://www.acmicpc.net/problem/1248
-# boj 1248 G3 맞춰봐 
-# <메모리 : 129196, 시간 744>
+'''
+- 문제를 완전 잘못 이해함 
+- 새로 짜야함.. 
+- 테두리 하나씩 왼쪽으로 돌려야 하는데 전체를 돌려버림.
+'''
+n, m, r = map(int, input().split())
+mat = []
+ck = [[False] * m for _ in range(n)]
+flatList = []
 
-import sys 
-input = sys.stdin.readline
-
-def ck(idx):
-    s = 0
-    for i in range(idx,-1,-1):
-        s += ans[i]
-        
-        if sign[i][idx] == '+' and s <= 0:
-            return False
-        if sign[i][idx] == '0' and s != 0:
-            return False
-        if sign[i][idx] == '-' and s >= 0:
-            return False
-        
-    return True
-
-def dfs(idx):
-    if idx == n:
-        return True
+for _ in range(n):
+    mat.append(list(map(int, input().split())))
     
-    if sign[idx][idx] == 0:
-        ans[idx] = 0
-        return ck(idx) and dfs(idx+1)
-
-    for i in range(1, 11):
-        ans[idx] = i * sign[idx][idx]
-        if ck(idx) and dfs(idx+1):
-            return True
-        
-    return False
-
-#-----------------------------
-n = int(input())
-s = input()
-sign = [[0]*n for _ in range(n)]
-ans = [0]*n
-cnt = 0
-
-for i in range(n):
-    for j in range(i,n):
-        if s[cnt] == '0':
-            sign[i][j] = 0
-        elif s[cnt] == '+':
-            sign[i][j] = 1
-        else:
-            sign[i][j] = -1
+def scanAround(start):
+    #오른쪽 -> 아래 -> 왼쪽 -> 위 
+    nx, ny = start[0], start[1]
+    dx = [0, 1, 0, -1]
+    dy = [1, 0, -1, 0]
+    flatList.append(mat[nx][ny])
+    ck[nx][ny] = True
+    for i in range(4):
+        while True:
+            nx += dx[i]
+            ny += dy[i]
             
-        cnt += 1
+            if nx < 0 or ny < 0 or nx >= n or ny >= m:
+                nx -= dx[i]
+                ny -= dy[i]
+                break 
+            
+            if ck[nx][ny]:
+                break
+            
+            flatList.append(mat[nx][ny])
+            ck[nx][ny] = True
+            
+    
+#-----------------------------
+start = (0,0)
+while True:
+    x, y = start[0], start[1]
+    print(x,y)
+    if ck[x][y] == True:
+        break 
+    scanAround(start)
+    start = (x+1, y+1)
+    
+#rotate
+rotatedList = flatList[r%(n*m):] + flatList[:r%(n*m)]
+print(rotatedList)
+# print('-------------')
+# for i in range(0, len(rotatedList)-2, m):
+#     print(*rotatedList[i:i+m])
 
-dfs(0)
-print(' '.join(map(str,ans)))
+                
+    
+    
+
+
+    
