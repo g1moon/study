@@ -1,60 +1,48 @@
+#14499 주사위 굴리기 
 '''
-- 문제를 완전 잘못 이해함 
-- 새로 짜야함.. 
-- 테두리 하나씩 왼쪽으로 돌려야 하는데 전체를 돌려버림.
+- (n * m)  r:row , c:col 
+- 
 '''
-n, m, r = map(int, input().split())
-mat = []
-ck = [[False] * m for _ in range(n)]
-flatList = []
+n, m, x, y, k = map(int, input().split())
+mat = [ list(map(int, input().split())) for _ in range(n)] 
+cmdList = list(map(int, input().split())) #동서북남 
 
-for _ in range(n):
-    mat.append(list(map(int, input().split())))
-    
-def scanAround(start):
-    #오른쪽 -> 아래 -> 왼쪽 -> 위 
-    nx, ny = start[0], start[1]
-    dx = [0, 1, 0, -1]
-    dy = [1, 0, -1, 0]
-    flatList.append(mat[nx][ny])
-    ck[nx][ny] = True
-    for i in range(4):
-        while True:
-            nx += dx[i]
-            ny += dy[i]
-            
-            if nx < 0 or ny < 0 or nx >= n or ny >= m:
-                nx -= dx[i]
-                ny -= dy[i]
-                break 
-            
-            if ck[nx][ny]:
-                break
-            
-            flatList.append(mat[nx][ny])
-            ck[nx][ny] = True
-            
-    
-#-----------------------------
-start = (0,0)
-while True:
-    x, y = start[0], start[1]
-    print(x,y)
-    if ck[x][y] == True:
-        break 
-    scanAround(start)
-    start = (x+1, y+1)
-    
-#rotate
-rotatedList = flatList[r%(n*m):] + flatList[:r%(n*m)]
-print(rotatedList)
-# print('-------------')
-# for i in range(0, len(rotatedList)-2, m):
-#     print(*rotatedList[i:i+m])
+dx = [0, 0, 0, -1, 1]
+dy = [0, 1, -1, 0, 0]
 
-                
-    
-    
+#주사위 윗면 -> 0, 아랫면 -> 5
+dice = [0,0,0,0,0,0]
 
-
+for cmd in cmdList:
+    nx, ny = x + dx[cmd], y + dy[cmd]
+    #바깥으로 이동하려하면 해당 명령 무시 
+    if nx < 0 or ny < 0 or nx > n-1 or ny > m-1:
+        continue 
+    
+    #주사위 변경 
+    if cmd == 1:
+        dice[0], dice[2], dice[4], dice[5] = dice[2], dice[5], dice[0], dice[4]
+    elif cmd == 2:
+        dice[0], dice[2], dice[4], dice[5] = dice[4], dice[0], dice[5], dice[2]
+    elif cmd == 3:
+        dice[0], dice[1], dice[3], dice[5] = dice[3], dice[0], dice[5], dice[1]
+    else:
+        dice[0], dice[1], dice[3], dice[5] = dice[1], dice[5], dice[0], dice[3]
+        
+    #이동
+    x, y = nx, ny
+    
+    #정상적인 이동이 된다면 -> 
+    #1. 지도 지도가 0 
+    if mat[x][y] == 0:
+        mat[x][y] = dice[5]
+    #2. 지도가 0이 아닌경우
+    else:
+        dice[5] = mat[x][y]
+        mat[x][y] = 0
+        
+    print(dice[0])
+        
+     
+    
     
