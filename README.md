@@ -1,22 +1,3 @@
-# g1moon
-
-- Email : gmoon.cho@gmail.com
-- Github
-
-[g1moon - Overview](https://github.com/g1moon)
-
----
-
-# Post
-
-**Nov 15. 2020** `dnn` `recsys`
-
----
-
-[The Modern JavaScript Tutorial - Object methods,](https://www.notion.so/g1moon/The-Modern-JavaScript-Tutorial-Object-methods-this-bf8943742d0741cf8b4fe183896a5dc3)
-
-[](https://www.notion.so/a050b99fa6994056990f66230092b369)
-
 # Archives
 
 [Web Programming](https://www.notion.so/Web-Programming-a894e68589e74171bb6391243e40cafd)
